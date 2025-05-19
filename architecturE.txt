@@ -1,0 +1,285 @@
+# Layer 3 Notepad - Architecture & Functionality
+
+## Overview
+
+Layer 3 Notepad is a thematically immersive note-taking application designed with a cyberpunk/digital ghost aesthetic. The application provides comprehensive text editing capabilities combined with organizational features like folders, tags, and backlinks, while maintaining an unsettling atmosphere through "haunting" UI elements that suggest sentience or hidden depths to the application itself.
+
+The name "Layer 3" suggests hidden protocols and deeper realities beneath the surface level of digital interactions, creating an experience that is both functionally robust and thematically engaging.
+
+## Core Architecture
+
+### File Structure
+- **index.html**: Core UI structure and element definitions
+- **style.css**: Complete styling including theme, animations, and responsive design
+- **script.js**: Application logic and functionality
+- **main.js**: Electron wrapper for desktop application (when built as executable)
+
+### Design Principles
+1. **Function with Atmosphere**: All features serve practical purposes while reinforcing the haunting theme
+2. **Progressive Intensity**: Haunting elements increase in frequency and intensity over time
+3. **Data Ownership**: All user data stored locally (localStorage in web version, filesystem in desktop version)
+4. **Responsive Design**: Adapts to different screen sizes while maintaining functionality
+5. **Rich Text Capabilities**: Custom Domain-Specific Language (DSL) for formatting
+
+## User Interface Components
+
+### Main Layout
+- **Sidebar**: Contains folders, tags, fragments, and system monitoring widgets
+- **Editor Area**: Main note editing space with formatting toolbar
+- **Preview Mode**: Rendered view of formatted notes
+- **Status Bar**: System status, connection simulation, and network activity indicators
+
+### Sidebar Sections
+1. **Folders Panel**: Hierarchical organization system with collapsible folder tree
+2. **Tags Panel**: Tag cloud with usage statistics and filtering capabilities
+3. **Layer Fragments**: Mysterious text fragments that can be loaded as inspiration
+4. **System Monitor**: Configurable widgets displaying various system metrics and statistics
+5. **Transmission Log**: Record of system events and communications
+
+### Modals
+- Save/Load dialogs
+- Encryption/Decryption interfaces
+- Format helper
+- Link/Image insertion tools
+- Metadata editor
+- Folder management
+- Export options
+
+## Data Management
+
+### Storage Architecture
+- **Notes**: Stored as JSON objects in localStorage (web) or files (desktop)
+- **Folders**: Hierarchical structure with parent/child relationships
+- **Tags**: Tracked with usage counts and note associations
+- **Backlinks**: Graph of connections between notes
+- **Metadata**: Custom fields for enhanced note information
+
+### Data Structure for Notes
+```json
+{
+  "filename": {
+    "content": "Note content with formatting",
+    "encrypted": false,
+    "folder": "folder_id",
+    "tags": ["tag1", "tag2"],
+    "metadata": {
+      "created": "ISO date",
+      "modified": "ISO date", 
+      "type": "note",
+      "font": "fontname",
+      "custom_field": "custom_value"
+    },
+    "timestamp": 1621459254000
+  }
+}
+```
+
+### Data Structure for Folders
+```json
+{
+  "folder_id": {
+    "name": "Folder Name",
+    "parent": "parent_folder_id",
+    "children": ["child_folder_id1", "child_folder_id2"]
+  }
+}
+```
+
+### Backlinks System
+- Automatically tracks internal links between notes
+- Builds a graph of note relationships
+- Updates references when notes are renamed
+
+## Core Functionality
+
+### Text Editing
+- Multi-font support with 7 font options:
+  - Inconsolata
+  - Times New Roman
+  - Dosis
+  - Source Code Pro
+  - Cinzel
+  - Rubik Burned
+  - Syne Mono
+- Rich text formatting via custom DSL
+- Real-time preview mode
+- Cursor position tracking
+
+### Formatting DSL
+The application uses a custom Domain-Specific Language for text formatting:
+
+| Syntax | Description | Example |
+|---|---|---|
+| `-::color::-` | Colored text | `-::red::- Text in red -::-` |
+| `[glow]` | Glowing text effect | `[glow] Glowing text [/glow]` |
+| `*-*-animated-*-*` | Animated glitch effect | `*-*-animated-*-* Animated text *-*-/animated-*-*` |
+| `(redacted)` | Hidden text, revealed on hover | `(redacted) Hidden text (/redacted)` |
+| `__underline__` | Underlined text | `__underline__ Underlined text __/underline__` |
+| `<size:value>` | Text size variation | `<size:large> Larger text </size>` |
+
+### Linking System
+- Internal links between notes using `[[Note Name]]` syntax
+- External links using `[Link Text](URL)` syntax
+- Image embedding with `![Alt Text](Image URL)` syntax
+- Automatic backlink tracking and updates
+
+### File Operations
+- Create new notes
+- Save notes with custom filenames
+- Load existing notes
+- Delete notes
+- Rename notes with automatic reference updates
+
+### Organizational Features
+- **Folders**: Hierarchical organization with unlimited nesting
+- **Tags**: Flexible categorization with frequency tracking
+- **Metadata**: Custom fields for additional note context
+
+## Enhanced Features
+
+### Cryptography
+- AES-GCM encryption for secure notes
+- Password-based key derivation
+- Encrypted notes indicator in UI
+- Secure storage of encrypted content
+
+### Metadata System
+- Built-in fields (created, modified, type)
+- Custom user-defined fields
+- Metadata editor interface
+- Export of metadata with notes
+
+### Preview System
+- Real-time rendering of formatted text
+- Interactive links in preview mode
+- Image display in preview
+- Toggle between edit and preview modes
+
+### Export Functionality
+- Multiple format options (TXT, MD, HTML)
+- Individual note export
+- Batch export of all notes
+- Metadata preservation
+- Browser download or filesystem save
+
+## Haunting Elements
+
+### Visual Effects
+- Glitching text animations
+- Haunted cursor trails
+- Screen distortion effects
+- Glitch lines scanning across the screen
+
+### System Feedback
+- Cryptic system messages triggered by keywords
+- Random "transmissions" appearing in the editor
+- Simulated network and system activity
+- Reality instability metrics that increase over time
+
+### Environmental Elements
+- Fragments - mysterious text snippets with thematic content
+- Transmission log with increasingly ominous messages
+- System metrics that suggest consciousness or awareness
+- Simulated "monitoring" of user activity
+
+### Progression System
+- Haunting intensity increases with session duration
+- More frequent hauntings after certain thresholds
+- Increasingly disturbing system messages
+- Visual effects that become more pronounced
+
+## Desktop Application Features
+
+### Electron Integration
+- Standalone executable (.exe) application
+- Native file system access
+- Enhanced export capabilities
+- System tray integration
+- Window management
+
+### File System Access
+- Direct reading/writing to files
+- Folder structure preservation
+- Import/export with native dialogs
+- Drag and drop support
+
+### Additional Desktop Features
+- Application auto-updates
+- Custom protocol handler (layer3://)
+- System notifications
+- Recent files list
+- Session persistence
+
+## Customization Options
+
+### Theme Configuration
+- Font selection with persistent preferences
+- Widget display options in System Monitor
+- Interface density settings
+- Custom export templates
+
+### User Preferences
+- Default folder for new notes
+- Auto-save interval
+- Default font selection
+- Haunting intensity control
+- Backup location selection
+
+## Future Enhancements
+
+### Potential Extensions
+1. **Collaborative Editing**: Multi-user capabilities with WebRTC or server backend
+2. **Mobile Companion App**: Android/iOS versions with sync capabilities
+3. **Voice Transcription**: Audio recording and automatic transcription
+4. **AI Integration**: Text analysis and suggestion capabilities
+5. **Plugin System**: Extensibility through custom JavaScript modules
+6. **Custom Themes**: User-created visual themes
+7. **Advanced Search**: Full-text search with relevance ranking
+8. **Version History**: Automatic versioning of notes
+9. **Drawing Tools**: Sketching and annotation capabilities
+10. **Enhanced Export**: Additional formats and template options
+
+## Technical Requirements
+
+### Web Version
+- Modern browser with localStorage support
+- WebCrypto API for encryption
+- CSS Grid and Flexbox support
+- JavaScript ES6+ compatibility
+
+### Desktop Version
+- Node.js runtime (bundled with Electron)
+- 100MB disk space for application
+- 4GB RAM recommended
+- Windows 10+ / macOS 10.15+ / Linux with GTK3
+
+## Security Considerations
+
+### Data Protection
+- All notes stored locally (no cloud sync)
+- Military-grade AES-GCM encryption
+- No tracking or telemetry
+- No external API dependencies
+- Password-derived keys never stored
+
+### Privacy Features
+- Option for automatic session termination
+- Encrypted note detection
+- Local storage only option
+- No network requirements
+
+## Integration Capabilities
+
+### Import/Export
+- Plain text import
+- Markdown import/export
+- HTML export with styling
+- JSON export of full data structure
+- Batch export functionality
+
+### Interoperability
+- URL scheme handling for external applications
+- Clipboard integration
+- Drag and drop support
+- File association for desktop version
+- Command line interface in desktop version
