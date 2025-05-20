@@ -1263,38 +1263,16 @@ body {
 }
 
 @media (max-width: 480px) {
-    .title-bar {
-        padding: 0.15rem 0.3rem;
-        height: 26px;
-    }
-
-    .title {
-        font-size: 0.75rem;
-    }
-
-    .window-control-button {
-        width: 22px;
-        height: 18px;
-        font-size: 0.75rem;
-    }
-
     .header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.3rem;
-        padding: 0.3rem 0;
+        gap: 0.5rem;
     }
 
     .controls {
         width: 100%;
         justify-content: flex-start;
         flex-wrap: wrap;
-        gap: 0.3rem;
-    }
-
-    .button {
-        padding: 0.15rem 0.3rem;
-        font-size: 0.65rem;
     }
 
     .sidebar {

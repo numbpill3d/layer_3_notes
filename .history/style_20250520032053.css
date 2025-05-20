@@ -1024,37 +1024,33 @@ body {
 .format-toolbar {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.4rem 0;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
     border-bottom: 1px solid var(--accent);
-    margin-bottom: 0.4rem;
-    background-color: rgba(20, 20, 24, 0.3);
+    margin-bottom: 0.5rem;
 }
 
 .format-button {
-    background-color: var(--background);
-    border: 1px solid var(--accent);
+    background-color: var(--accent);
+    border: none;
     color: var(--text);
-    padding: 0.2rem 0.4rem;
+    padding: 0.3rem 0.5rem;
     cursor: pointer;
-    font-size: 0.75rem;
-    transition: all 0.2s;
-    opacity: 0.85;
+    font-size: 0.8rem;
+    transition: background-color 0.2s;
 }
 
 .format-button:hover {
-    background-color: var(--accent);
-    opacity: 1;
+    background-color: var(--highlight);
 }
 
 .format-dropdown {
-    background-color: var(--background);
-    border: 1px solid var(--accent);
+    background-color: var(--accent);
+    border: none;
     color: var(--text);
-    padding: 0.2rem 0.4rem;
+    padding: 0.3rem 0.5rem;
     cursor: pointer;
-    font-size: 0.75rem;
-    opacity: 0.85;
+    font-size: 0.8rem;
 }
 
 .format-dropdown option {
@@ -1213,26 +1209,15 @@ body {
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
-        padding: 0.3rem 0.5rem;
-    }
-
-    .title-bar {
-        padding: 0.2rem 0.4rem;
-        height: 28px;
+        padding: 0.5rem;
     }
 
     .title {
-        font-size: 0.8rem;
-    }
-
-    .window-control-button {
-        width: 24px;
-        height: 20px;
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
     .button {
-        padding: 0.2rem 0.4rem;
+        padding: 0.2rem 0.5rem;
         font-size: 0.7rem;
     }
 
@@ -1257,44 +1242,22 @@ body {
     }
 
     .format-button {
-        padding: 0.2rem 0.3rem;
+        padding: 0.2rem 0.4rem;
         font-size: 0.7rem;
     }
 }
 
 @media (max-width: 480px) {
-    .title-bar {
-        padding: 0.15rem 0.3rem;
-        height: 26px;
-    }
-
-    .title {
-        font-size: 0.75rem;
-    }
-
-    .window-control-button {
-        width: 22px;
-        height: 18px;
-        font-size: 0.75rem;
-    }
-
     .header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.3rem;
-        padding: 0.3rem 0;
+        gap: 0.5rem;
     }
 
     .controls {
         width: 100%;
         justify-content: flex-start;
         flex-wrap: wrap;
-        gap: 0.3rem;
-    }
-
-    .button {
-        padding: 0.15rem 0.3rem;
-        font-size: 0.65rem;
     }
 
     .sidebar {
