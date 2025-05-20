@@ -1211,6 +1211,50 @@ body {
     color: var(--format-green);
 }
 
+/* Voidrane footer */
+.voidrane-footer {
+    position: fixed;
+    bottom: 0.5rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    color: var(--glitch);
+    opacity: 0.5;
+    font-style: italic;
+    z-index: 10;
+    user-select: none;
+    transition: opacity 0.3s;
+}
+
+.voidrane-footer:hover {
+    opacity: 0.8;
+}
+
+.voidrane-footer.glitch {
+    animation: footer-glitch 0.2s linear;
+    text-shadow: 2px 0 var(--format-red), -2px 0 var(--format-cyan);
+}
+
+@keyframes footer-glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
