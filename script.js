@@ -697,7 +697,7 @@ function closeModal(modal) {
     modal.classList.remove('active');
 }
 
-// Initialize the application with window controls
+// Initialize the application with custom window controls
 document.addEventListener('DOMContentLoaded', () => {
     // Set up window control buttons
     const minimizeBtn = document.getElementById('minimizeBtn');
