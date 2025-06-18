@@ -4,13 +4,13 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "electron": "^36.2.1"
+    "electron": "^36.4.0"
   },
   "name": "layer_3",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "npx electron ."
   },
   "dependencies": {
     "layer_3": "file:"

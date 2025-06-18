@@ -1,5 +1,7 @@
 // Main process file
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const electron = require('electron');
+const { app, BrowserWindow, dialog } = electron;
+const ipcMain = electron.ipcMain;
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
@@ -159,7 +161,20 @@ ipcMain.handle('get-app-path', async () => {
   return getUserDataPath();
 });
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+  
+  // Register IPC handlers after window creation
+  ipcMain.handle('create-directory', async (event, dirPath) => {
+    try {
+      const fullPath = path.join(getUserDataPath(), dirPath);
+      await mkdir(fullPath, { recursive: true });
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  });
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

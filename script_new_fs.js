@@ -175,6 +175,11 @@ function init() {
         }
     });
 
+    // Create notes directory if it doesn't exist
+    if (window.electron) {
+        window.electron.ipcRenderer.invoke('create-directory', 'notes');
+    }
+
     // Load data from localStorage
     loadFolders();
     loadTags();
@@ -184,8 +189,8 @@ function init() {
     updateFoldersUI();
     updateTagsUI();
 
-    // Create a new note
-    createNewNote();
+    // Load notes from filesystem
+    loadNotesFromFilesystem();
 
     // Start session timer
     startSessionTimer();
@@ -369,6 +374,29 @@ async function saveNote() {
 
         // Update backlinks
         updateBacklinks(filename, editor.value);
+        
+        // Save to filesystem
+        if (window.electron) {
+            try {
+                const filePath = `notes/${currentFilename}.json`;
+                const noteData = {
+                    content: editor.value,
+                    encrypted: isEncrypted,
+                    folder: currentFolder,
+                    tags: currentTags,
+                    metadata: currentMetadata,
+                    timestamp: Date.now()
+                };
+                const jsonContent = JSON.stringify(noteData, null, 2);
+                
+                await window.electron.ipcRenderer.invoke('save-file', {
+                    filePath: filePath,
+                    content: jsonContent
+                });
+            } catch (error) {
+                console.error('Error auto-saving to file system:', error);
+            }
+        }
 
         closeModal(saveModal);
         showNotification(`Note saved as "${filename}"`, "success");
@@ -527,6 +555,50 @@ async function loadSavedFiles() {
     } catch (error) {
         console.error('Error loading files:', error);
         showNotification("Failed to load file list", "error");
+    }
+}
+
+// Load notes from filesystem on startup
+async function loadNotesFromFilesystem() {
+    if (!window.electron) return;
+    
+    try {
+        const result = await window.electron.ipcRenderer.invoke('read-directory', 'notes');
+        if (result.success && result.files.length > 0) {
+            // Load the most recent note
+            const sortedFiles = result.files
+                .filter(file => file.endsWith('.json'))
+                .sort((a, b) => b.timestamp - a.timestamp);
+                
+            if (sortedFiles.length > 0) {
+                const filePath = `notes/${sortedFiles[0].name}`;
+                await loadFileFromSystem(filePath);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading notes from filesystem:', error);
+    }
+}
+
+// Load notes from filesystem on startup
+async function loadNotesFromFilesystem() {
+    if (!window.electron) return;
+    
+    try {
+        const result = await window.electron.ipcRenderer.invoke('read-directory', 'notes');
+        if (result.success && result.files.length > 0) {
+            // Load the most recent note
+            const sortedFiles = result.files
+                .filter(file => file.endsWith('.json'))
+                .sort((a, b) => b.timestamp - a.timestamp);
+                
+            if (sortedFiles.length > 0) {
+                const filePath = `notes/${sortedFiles[0].name}`;
+                await loadFileFromSystem(filePath);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading notes from filesystem:', error);
     }
 }
 
@@ -1662,6 +1734,32 @@ function loadFileFromFolder(filename) {
         showNotification("Failed to load file", "error");
     } finally {
         setStatusText("System idle");
+    }
+}
+
+// Load notes from filesystem on startup
+async function loadNotesFromFilesystem() {
+    if (!window.electron) return;
+    
+    try {
+        const result = await window.electron.ipcRenderer.invoke('read-directory', 'notes');
+        if (result.success && result.files.length > 0) {
+            // Get file stats to determine most recently modified
+            const filesWithStats = await Promise.all(result.files.map(async file => {
+                const statResult = await window.electron.ipcRenderer.invoke('get-file-stats', `notes/${file}`);
+                return { name: file, timestamp: statResult.modifiedTime };
+            }));
+            
+            // Sort by modification time (newest first)
+            const sortedFiles = filesWithStats.sort((a, b) => b.timestamp - a.timestamp);
+            
+            if (sortedFiles.length > 0) {
+                const filePath = `notes/${sortedFiles[0].name}`;
+                await loadFileFromSystem(filePath);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading notes from filesystem:', error);
     }
 }
 
